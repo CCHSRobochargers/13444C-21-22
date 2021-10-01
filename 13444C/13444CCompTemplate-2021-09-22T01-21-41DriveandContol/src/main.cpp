@@ -10,7 +10,7 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Drivetrain           drivetrain    14, 15          
+// Drivetrain           drivetrain    12, 13          
 // Controller1          controller                    
 // MotorGroup6          motor_group   6, 7            
 // ---- END VEXCODE CONFIGURED DEVICES ----
@@ -36,6 +36,10 @@ competition Competition;
 /*---------------------------------------------------------------------------*/
 
 void pre_auton(void) {
+ int fingerX; 
+ int fingerY;
+ int selLine;
+ 
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
 

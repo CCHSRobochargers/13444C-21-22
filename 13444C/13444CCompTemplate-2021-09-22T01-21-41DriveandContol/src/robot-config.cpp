@@ -8,11 +8,11 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor LeftDriveSmart = motor(PORT14, ratio18_1, false);
-motor RightDriveSmart = motor(PORT15, ratio18_1, true);
+motor LeftDriveSmart = motor(PORT12, ratio18_1, false);
+motor RightDriveSmart = motor(PORT13, ratio18_1, true);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 374.65, 279.4, mm, 1);
 controller Controller1 = controller(primary);
-motor MotorGroup6MotorA = motor(PORT6, ratio36_1, false);
+motor MotorGroup6MotorA = motor(PORT6, ratio36_1, true);
 motor MotorGroup6MotorB = motor(PORT7, ratio36_1, false);
 motor_group MotorGroup6 = motor_group(MotorGroup6MotorA, MotorGroup6MotorB);
 
@@ -20,6 +20,7 @@ motor_group MotorGroup6 = motor_group(MotorGroup6MotorA, MotorGroup6MotorB);
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
+bool Controller1XBButtonsControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
@@ -71,6 +72,18 @@ int rc_auto_loop_function_Controller1() {
       if (DrivetrainRNeedsToBeStopped_Controller1) {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
+      }
+      // check the ButtonX/ButtonB status to control MotorGroup6
+      if (Controller1.ButtonX.pressing()) {
+        MotorGroup6.spin(forward);
+        Controller1XBButtonsControlMotorsStopped = false;
+      } else if (Controller1.ButtonB.pressing()) {
+        MotorGroup6.spin(reverse);
+        Controller1XBButtonsControlMotorsStopped = false;
+      } else if (!Controller1XBButtonsControlMotorsStopped) {
+        MotorGroup6.stop();
+        // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
+        Controller1XBButtonsControlMotorsStopped = true;
       }
     }
     // wait before repeating the process
