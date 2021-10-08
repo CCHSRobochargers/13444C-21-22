@@ -10,9 +10,9 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Drivetrain           drivetrain    12, 13
-// Controller1          controller
-// MotorGroup6          motor_group   6, 7
+// Drivetrain           drivetrain    12, 13          
+// Controller1          controller                    
+// MotorGroup6          motor_group   6, 7            
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -25,15 +25,22 @@ competition Competition;
 // define your global instances of motors and other devices here
 
 // For autonomous selections
-#define LINE_HEIGHT 40 // Character (line) height (pixels)
+#define LINE_HEIGHT 40  // Character (line) height (pixels)
 
 // Names for our autonomous routines
-enum autoProg { none, auto1, auto2, auto3, autoOK };
+enum autoProg {none, auto1, auto2, auto3, autoOK};
 
-const char *autoLabels[autoOK + 1] = {"NONE", "Auto1", "Auto2", "Auto3", "OK"};
+ const char *autoLabels[autoOK + 1] = {
+  "NONE",
+  "Auto1",
+  "Auto2",
+  "Auto3",
+  "OK"
+};
 
-// Which autonomous was selected (defaults to "none")
+ // Which autonomous was selected (defaults to "none")
 int autoSelect = 0;
+
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -56,9 +63,8 @@ void pre_auton(void) {
   // Print the autonomous routine labels
   Brain.Screen.setFont(monoL);
   Brain.Screen.clearScreen();
-  // Brain.Screen.setPenColor(white);
-  for (int j = 0; j <= autoOK; j++) {
-    Brain.Screen.setCursor(j+2, 5);
+  for (int j = 0; j < autoOK; j++) {
+    Brain.Screen.setCursor(j, 0);
     Brain.Screen.print(autoLabels[j]);
   }
 
@@ -68,9 +74,7 @@ void pre_auton(void) {
       fingerX = Brain.Screen.xPosition();
       fingerY = Brain.Screen.yPosition();
 
-      selLine =  fingerY / LINE_HEIGHT;
-      Brain.Screen.setCursor(8, 1);
-      Brain.Screen.print(selLine);
+      selLine = fingerY / LINE_HEIGHT;
 
       // Press "OK" to accept
       if (selLine == autoOK) {
@@ -83,7 +87,16 @@ void pre_auton(void) {
     }
     wait(20, msec);
   }
+  // All activities that occur before the competition starts
+  // Example: clearing encoders, setting servo positions, ...
 }
+
+ 
+  // Initializing Robot Configuration. DO NOT REMOVE!
+  vexcodeInit();
+
+  // All activities that occur before the competition starts
+  // Example: clearing encoders, setting servo positions, ...
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -96,22 +109,22 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  if (autoSelect == auto1) {
-    MotorGroup6.spinToPosition(1350, degrees);
-    Drivetrain.driveFor(forward, 21, inches);
-    MotorGroup6.spinToPosition(1000, degrees);
-    Drivetrain.driveFor(reverse, 15, inches);
-    MotorGroup6.spinToPosition(1350, degrees);
-  }
+if(autoSelect == auto1) {
+  MotorGroup6.spinToPosition(1350,degrees);
+  Drivetrain.driveFor(forward,21,inches);
+  MotorGroup6.spinToPosition(1000,degrees);
+  Drivetrain.driveFor(reverse,15,inches);
+  MotorGroup6.spinToPosition(1350,degrees);
+}
 
-  if (autoSelect == auto2) {
-    MotorGroup6.spinToPosition(1350, degrees);
-    Drivetrain.driveFor(forward, 15, inches);
-    MotorGroup6.spinToPosition(1000, degrees);
-    Drivetrain.driveFor(forward, 14, inches);
-    MotorGroup6.spinToPosition(750, degrees);
-    Drivetrain.driveFor(forward, 10, inches);
-  }
+if(autoSelect == auto2) {
+  MotorGroup6.spinToPosition(1350,degrees);
+  Drivetrain.driveFor(forward,15,inches);
+  MotorGroup6.spinToPosition(1000,degrees);
+  Drivetrain.driveFor(forward,14,inches);
+  MotorGroup6.spinToPosition(750,degrees);
+  Drivetrain.driveFor(forward,10,inches);
+}
 }
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -126,7 +139,8 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
-
+    
+    
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.

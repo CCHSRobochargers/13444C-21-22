@@ -23,8 +23,6 @@ using namespace vex;
 competition Competition;
 
 // define your global instances of motors and other devices here
-
-// For autonomous selections
 #define LINE_HEIGHT 40 // Character (line) height (pixels)
 
 // Names for our autonomous routines
@@ -56,9 +54,8 @@ void pre_auton(void) {
   // Print the autonomous routine labels
   Brain.Screen.setFont(monoL);
   Brain.Screen.clearScreen();
-  // Brain.Screen.setPenColor(white);
-  for (int j = 0; j <= autoOK; j++) {
-    Brain.Screen.setCursor(j+2, 5);
+  for (int j = 0; j < autoOK; j++) {
+    Brain.Screen.setCursor(j, 0);
     Brain.Screen.print(autoLabels[j]);
   }
 
@@ -68,9 +65,7 @@ void pre_auton(void) {
       fingerX = Brain.Screen.xPosition();
       fingerY = Brain.Screen.yPosition();
 
-      selLine =  fingerY / LINE_HEIGHT;
-      Brain.Screen.setCursor(8, 1);
-      Brain.Screen.print(selLine);
+      selLine = fingerY / LINE_HEIGHT;
 
       // Press "OK" to accept
       if (selLine == autoOK) {
@@ -83,7 +78,12 @@ void pre_auton(void) {
     }
     wait(20, msec);
   }
+  // All activities that occur before the competition starts
+  // Example: clearing encoders, setting servo positions, ...
 }
+
+// All activities that occur before the competition starts
+// Example: clearing encoders, setting servo positions, ...
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -97,20 +97,18 @@ void pre_auton(void) {
 
 void autonomous(void) {
   if (autoSelect == auto1) {
-    MotorGroup6.spinToPosition(1350, degrees);
+    MotorGroup6.spinFor(forward, 90, degrees);
     Drivetrain.driveFor(forward, 21, inches);
-    MotorGroup6.spinToPosition(1000, degrees);
+    MotorGroup6.spinFor(reverse, 15, degrees);
     Drivetrain.driveFor(reverse, 15, inches);
-    MotorGroup6.spinToPosition(1350, degrees);
+    MotorGroup6.spinFor(forward, 15, degrees);
   }
 
   if (autoSelect == auto2) {
-    MotorGroup6.spinToPosition(1350, degrees);
-    Drivetrain.driveFor(forward, 15, inches);
-    MotorGroup6.spinToPosition(1000, degrees);
-    Drivetrain.driveFor(forward, 14, inches);
-    MotorGroup6.spinToPosition(750, degrees);
-    Drivetrain.driveFor(forward, 10, inches);
+    MotorGroup6.spinFor(forward, 90, degrees);
+    Drivetrain.driveFor(forward, 17, inches);
+    MotorGroup6.spinFor(reverse, 45, degrees);
+    Drivetrain.driveFor(forward, 40, inches);
   }
 }
 /*---------------------------------------------------------------------------*/
