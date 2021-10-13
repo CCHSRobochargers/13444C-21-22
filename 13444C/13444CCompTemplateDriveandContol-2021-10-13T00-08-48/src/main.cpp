@@ -97,10 +97,10 @@ void pre_auton(void) {
 
 void autonomous(void) {
   if (autoSelect == auto1) {
-    MotorGroup6.spinToPosition(-1300, degrees);
-    Drivetrain.driveFor(forward, 19, inches);
+    MotorGroup6.spinToPosition(-200, degrees);
+    Drivetrain.driveFor(forward, 21, inches);
     MotorGroup6.spinToPosition(-1000, degrees);
-    Drivetrain.driveFor(reverse, 21, inches);
+    Drivetrain.driveFor(reverse, 15, inches);
     MotorGroup6.spinToPosition(-1350, degrees);
   }
 
