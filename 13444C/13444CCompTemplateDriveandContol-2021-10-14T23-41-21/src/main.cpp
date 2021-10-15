@@ -53,8 +53,6 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
 
-  MotorGroup6.setPosition(0,degrees);
-  
   // Print the autonomous routine labels
   Brain.Screen.setFont(monoL);
   Brain.Screen.clearScreen();
@@ -98,20 +96,24 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-    // MotorGroup6.spinToPosition(-1300, degrees);
-    // Drivetrain.driveFor(forward, 21, inches);
-    // MotorGroup6.spinToPosition(-1000, degrees);
-    // Drivetrain.driveFor(reverse, 13, inches);
-    // Drivetrain.turnFor(right, 35, degrees);
-    // MotorGroup6.spinToPosition(-1350, degrees);
-    // Drivetrain.driveFor(reverse, 8, inches);
+  if (autoSelect == auto1) {
+    MotorGroup6.spinToPosition(-1300, degrees);
+    Drivetrain.driveFor(forward, 21, inches);
+    MotorGroup6.spinToPosition(-1000, degrees);
+    Drivetrain.driveFor(reverse, 13, inches);
+    Drivetrain.turnFor(right, 90, degrees);
+    MotorGroup6.spinToPosition(-1350, degrees);
+    Drivetrain.driveFor(reverse, 5, inches);
+  }
 
-    // MotorGroup6.spinToPosition(-1300, degrees);
-    // Drivetrain.driveFor(forward, 15, inches);
-    // MotorGroup6.spinToPosition(-1000, degrees);
-    // Drivetrain.driveFor(forward, 14, inches);
-    // MotorGroup6.spinToPosition(-750, degrees);
-    // Drivetrain.driveFor(forward, 10, inches);
+  // if (autoSelect == auto2) {
+  //   MotorGroup6.spinToPosition(1350, degrees);
+  //   Drivetrain.driveFor(forward, 15, inches);
+  //   MotorGroup6.spinToPosition(1000, degrees);
+  //   Drivetrain.driveFor(forward, 14, inches);
+  //   MotorGroup6.spinToPosition(750, degrees);
+  //   Drivetrain.driveFor(forward, 10, inches);
+  // }
 }
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
